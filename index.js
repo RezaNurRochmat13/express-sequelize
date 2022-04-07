@@ -9,8 +9,8 @@ const PORT = 8080;
 
 // ORM sequelize init
 const db = require('./models');
-db.sequelize.sync({ force: true }).then(() => {
-    console.log("Drop and re-sync db.");
+db.sequelize.sync({ force: false }).then(() => {
+    console.log("Sync db.");
 });
 
 // CORS configuration
