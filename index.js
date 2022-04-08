@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
+// Include external routes
 require('./route/user.route.js')(app);
 const corsOptions = {
     origin: "*"
@@ -18,7 +19,7 @@ db.sequelize.sync({ force: false }).then(() => {
 app.use(cors(corsOptions));
 
 // Parse requests body payload as json
-app.use(express.json());
+app.use(bodyParser.json());
 
 // Parse request body payload as form data
 app.use(express.urlencoded({ extended: true }));
