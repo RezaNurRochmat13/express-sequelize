@@ -1,4 +1,5 @@
 const db = require('../models');
+const user = require('../models/user.js');
 const User = db.users;
 
 exports.findAll = (req, res) => {
@@ -19,7 +20,19 @@ exports.findById = (req, res) => {
 };
 
 exports.create = (req, res) => {
+    if (req.body === null) {
+        res.status(400).json({ message: "Body can't be null" });
+    }
 
+    const user = {
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email
+    };
+
+    User.create(user).then(data => {
+        res.json(data);
+    });
 };
 
 exports.update = (req, res) => {

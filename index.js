@@ -1,9 +1,7 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
-// Include external routes
-require('./route/user.route.js')(app);
+const userController = require('./controller/user.controller.js');
 const corsOptions = {
     origin: "*"
 };
@@ -19,7 +17,7 @@ db.sequelize.sync({ force: false }).then(() => {
 app.use(cors(corsOptions));
 
 // Parse requests body payload as json
-app.use(bodyParser.json());
+app.use(express.json());
 
 // Parse request body payload as form data
 app.use(express.urlencoded({ extended: true }));
@@ -28,6 +26,11 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (request, response) => {
     response.json({ message: "Welcome on Express Sequelize Example" });
 });
+
+// User routes
+app.post('/api/users', userController.create);
+app.get('/api/users', userController.findAll);
+app.get('/api/users/:id', userController.findById);
 
 // Set listen port
 app.listen(PORT, () => {
