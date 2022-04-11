@@ -36,7 +36,23 @@ exports.create = (req, res) => {
 };
 
 exports.update = (req, res) => {
+    const user = {
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email
+    };
 
+    User.findByPk(req.params.id)
+        .then(data => {
+            if (data) {
+                User.update(user, {
+                    where: { id: req.params.id }
+                });
+                res.status(200).json({ message: 'Updated successfully' });
+            } else {
+                res.status(404).json({ message: `User not found with id : ${req.params.id}` })
+            }
+        });
 };
 
 exports.delete = (req, res) => {

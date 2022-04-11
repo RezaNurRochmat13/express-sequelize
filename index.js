@@ -31,6 +31,7 @@ app.get('/', (request, response) => {
 app.post('/api/users', userController.create);
 app.get('/api/users', userController.findAll);
 app.get('/api/users/:id', userController.findById);
+app.put('/api/users/:id', userController.update);
 
 // Set listen port
 app.listen(PORT, () => {
