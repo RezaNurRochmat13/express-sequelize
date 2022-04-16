@@ -57,4 +57,14 @@ exports.update = (req, res) => {
 
 exports.delete = (req, res) => {
 
+    User.findByPk(req.params.id)
+        .then(data => {
+            if (data) {
+                User.destroy(data);
+
+                res.status(200).json({ message: 'Updated successfully' });
+            } else {
+                res.status(404).json({ message: `User not found with id : ${req.params.id}` })
+            }
+        });
 };
