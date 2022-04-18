@@ -2,13 +2,13 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const userController = require('./controller/user.controller.js');
+const db = require('./models');
 const corsOptions = {
     origin: "*"
 };
-const PORT = 8080;
+const PORT = 8081;
 
 // ORM sequelize init
-const db = require('./models');
 db.sequelize.sync({ force: false }).then(() => {
     console.log("Sync db.");
 });
